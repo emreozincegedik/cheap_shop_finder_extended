@@ -8,7 +8,7 @@ search_args = reqparse.RequestParser()
 search_args.add_argument(
     "query", type=str, help="Arama yapılacak kelime(ler) lazım", required=True)
 search_args.add_argument(
-    "website", help="Arama yapılacak site(ler) lazım. Ör: ['hepsiburada','amazon']", action="append", required=True)
+    "website", help="Arama yapılacak site(ler) lazım. Ör: ['hepsiburada','amazon']", action="append")
 
 
 class HelloWorld(Resource):
