@@ -23,6 +23,7 @@ class Scraper():
         return float(a)
 
     def n11Scrape(self):
+        print("started n11")
         items = self.scrapedItems(self.n11URL, ".clearfix .column")
         for item in items:
             itemObj = {}
@@ -37,7 +38,7 @@ class Scraper():
         print("finished n11")
 
     def hepsiburadaScrape(self):
-
+        print("started hepsiburada")
         headers = {
             "Connection": "keep-alive",
             "Cache-Control": "max-age=0",
@@ -68,7 +69,7 @@ class Scraper():
         print("finished hepsiburada")
 
     def gittigidiyorScrape(self):
-
+        print("started gittigidiyor")
         items = self.scrapedItems(self.gittigidiyorURL, "li.gg-uw-6")
 
         for item in items:
@@ -88,8 +89,9 @@ class Scraper():
         print("finished gittigidiyor")
 
     def amazontrScrape(self):
+        print("started amazon.com.tr")
         items = self.scrapedItems(
-            self.scraper_api +
+            # self.scraper_api +
             self.amazontrURL, ".s-latency-cf-section .a-spacing-medium"
             # ,
             # headers={
@@ -136,6 +138,10 @@ class Scraper():
         return items
 
     def runThread(self, websiteArr):
+        print(websiteArr)
+        if websiteArr == [] or websiteArr == None:
+            websiteArr = ["hepsiburada", "n11", "gittigidiyor", "amazon"]
+        print(websiteArr)
         import threading
         threadArr = []
         th_n11 = threading.Thread(target=self.n11Scrape)
@@ -156,8 +162,8 @@ class Scraper():
             th.join()
         # print(threadArr)
         # print(len(self.itemsArr))
-        # with open('a.json', 'w') as outfile:
-        #     json.dump(self.itemsArr, outfile)
+        with open('a.json', 'w') as outfile:
+            json.dump(self.itemsArr, outfile)
         return self.itemsArr
 
 
