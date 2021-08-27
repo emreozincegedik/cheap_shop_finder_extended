@@ -55,10 +55,10 @@ class HelloWorld(Resource):
                  for i in range(0, len(items), self.item_count_in_page)]
         if args["page"] != None:
             if args["page"] > len(items) or args["page"] <= 0:
-                return []
-            return items[args["page"]-1]
+                return {"total_page_count": len(items), "page": []}
+            return {"total_page_count": len(items), "page": items[args["page"]-1]}
 
-        return items[0]
+        return {"total_page_count": len(items), "page": items[0]}
 
 
 api.add_resource(HelloWorld, "/helloworld")
