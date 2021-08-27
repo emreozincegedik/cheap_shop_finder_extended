@@ -2,7 +2,6 @@ import React from 'react'
 import { useRouter } from 'next/router'
 
 import CardAndFilterBox from '../../../components/CardAndFilterBox'
-import Pagination from '../../../components/Pagination'
 
 export default function Query() {
   const router = useRouter()
@@ -11,7 +10,6 @@ export default function Query() {
     <>
       Arama: {query}
       <CardAndFilterBox />
-      <Pagination/>
     </>
   )
 }
