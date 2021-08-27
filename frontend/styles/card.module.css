@@ -1,4 +1,29 @@
 .item_photo {
 	height: 10rem;
 	width: 10rem;
+	padding: 0.5rem;
+	transition: 0.1s all ease-in-out;
+	object-fit: scale-down;
+}
+.item_photo:hover {
+	transform: scale(1.35);
+}
+
+.title {
+	padding-top: 0.1rem;
+}
+.button {
+	/* width: 15rem; */
+	/* margin-left: -5rem; */
+}
+.container {
+	margin-top: 1rem;
+}
+.price {
+	text-align: right;
+	padding-right: 0.5rem;
+}
+.nonImg {
+	padding-left: 3rem;
+	padding-right: 3rem;
 }
