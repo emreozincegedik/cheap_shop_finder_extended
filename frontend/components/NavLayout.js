@@ -6,9 +6,11 @@ import Logo from "../public/magnifying_glass.svg"
 export default function NavLayout() {
   
   const router=useRouter()
-  const [query, setQuery] = useState(router.query.query)
-  const searchQuery = (e,path) => {
+  const [query, setQuery] = useState(router.query.query || "")
+  const searchQuery = (e, path) => {
     e.preventDefault()
+    console.log(query)
+    // return
     router.push(path)
   }
   return (
