@@ -27,8 +27,9 @@ class HelloWorld(Resource):
         return {"data": "Hello world"}
 
     def post(self):
-        print(request.form)
+        # print(request.form)
         args = search_args.parse_args()
+        print(args)
         if args["low_limit"] != None and args["high_limit"] != None and args["high_limit"] < args["low_limit"]:
             return abort(417, description="low_limit high_limit ten küçük olmalı")
         scraper = Scraper(args["query"])
@@ -61,12 +62,12 @@ class HelloWorld(Resource):
         return {"total_page_count": len(items), "page": items[0]}
 
 
-api.add_resource(HelloWorld, "/helloworld")
+api.add_resource(HelloWorld, "/")
 
 
-@app.route('/', methods=['GET', 'POST'])
-def welcome():
-    return "Hello World!"
+# @app.route('/', methods=['GET', 'POST'])
+# def welcome():
+#     return "Hello World!"
 
 
 if __name__ == '__main__':
