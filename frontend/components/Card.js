@@ -21,7 +21,9 @@ export default function Card({ img, title, price, link, website }) {
         <button className={"btn btn-block btn-outline-primary " + styles.button}
           onClick={() => {
             console.log((link || "asd"))
-            router.push((link || "/"))
+            const win = window.open((link || "/"))
+            win.focus()
+            // router.push((link || "/"))
           }}>{website || "website"}</button>
       </div>
     </div>
