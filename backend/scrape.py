@@ -83,7 +83,7 @@ class Scraper():
                 itemObj["price"] = self.floatConverter(
                     item.find(".fontb").text)
             itemObj["img"] = item.find("img")["data-original"]
-            itemObj["link"] = "https:" + item.find("a")["href"]
+            itemObj["link"] = item.find("a")["href"]
             itemObj["website"] = "gittigidiyor"
             self.itemsArr.append(itemObj)
         print("finished gittigidiyor")
