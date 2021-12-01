@@ -59,7 +59,7 @@ class HelloWorld(Resource):
                 return {"total_page_count": len(items), "page": []}
             return {"total_page_count": len(items), "page": items[args["page"]-1]}
 
-        return {"total_page_count": len(items), "page": items[0]}
+        return {"total_page_count": len(items), "page": items}
 
 
 api.add_resource(HelloWorld, "/")
