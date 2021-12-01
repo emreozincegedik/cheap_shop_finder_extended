@@ -72,7 +72,7 @@ class Scraper():
                 self.itemsArr.append(itemObj)
 
             except Exception as e:
-                print(i, e)
+                print(e)
         print("finished hepsiburada")
 
     def gittigidiyorScrape(self):
