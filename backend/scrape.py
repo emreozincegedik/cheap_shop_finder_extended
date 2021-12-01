@@ -55,34 +55,54 @@ class Scraper():
             "Accept-Language": "en-US,en;q=0.9,tr-TR;q=0.8,tr;q=0.7"
         }
         items = self.scrapedItems(
-            self.hepsiburadaURL, "div.product", headers=headers)
+            self.hepsiburadaURL, ".productListContent-item", headers=headers)
+        i = 0
         for item in items:
-            itemObj = {}
-            itemObj["title"] = item.find("h3")["title"]
-            itemObj["price"] = self.floatConverter(
-                item.select("span.price")[0].text)
-            itemObj["img"] = item.find("img")["data-src"]
-            itemObj["link"] = "https://hepsiburada.com" + \
-                item.find("a")["href"]
-            itemObj["website"] = "hepsiburada"
-            self.itemsArr.append(itemObj)
+            try:
+                i += 1
+                itemObj = {}
+                itemObj["title"] = item.find("h3").text
+
+                itemObj["price"] = self.floatConverter(
+                    item.find_all(
+                        attrs={"data-test-id": "price-current-price"})[0].text)
+                print("--------------")
+                print(itemObj["title"])
+                print("https://hepsiburada.com" +
+                      item.find("a")["href"]
+                      )
+                # itemsT = soup.select("img")["src"]
+                # print(itemsT)
+                print("--------------")
+                itemObj["img"] = item.select(
+                    "noscript")[0].select("img")[0]["src"]
+                itemObj["link"] = "https://hepsiburada.com" + \
+                    item.find("a")["href"]
+                itemObj["website"] = "hepsiburada"
+                self.itemsArr.append(itemObj)
+
+            except Exception as e:
+                print(i, e)
         print("finished hepsiburada")
 
     def gittigidiyorScrape(self):
         print("started gittigidiyor")
-        items = self.scrapedItems(self.gittigidiyorURL, "li.gg-uw-6")
-
+        items = self.scrapedItems(
+            self.gittigidiyorURL, "ul li article ")
+        print(len(items))
         for item in items:
             itemObj = {}
-            itemObj["title"] = item.find("h3").text.strip()
-            try:
-                itemObj["price"] = self.floatConverter(
-                    item.select("p.fiyat")[0].text)
-            except:
-                print(item.select(".fontb"))
-                itemObj["price"] = self.floatConverter(
-                    item.find(".fontb").text)
-            itemObj["img"] = item.find("img")["data-original"]
+            itemObj["title"] = item.find("a")["title"]
+
+            if len(item.select(
+                    "section > span")[1].text) == 0:
+                itemObj["price"] = self.floatConverter(item.select(
+                    "section > span")[0].text)
+            else:
+                itemObj["price"] = self.floatConverter(item.select(
+                    "section > span")[1].text)
+
+            itemObj["img"] = item.find("img")["src"]
             itemObj["link"] = item.find("a")["href"]
             itemObj["website"] = "gittigidiyor"
             self.itemsArr.append(itemObj)
@@ -169,4 +189,5 @@ class Scraper():
 
 if __name__ == "__main__":
     scraper = Scraper("telefon")
-    scraper.runThread(["n11", "amazon", "gittigidiyor", "hepsiburada"])
+    scraper.runThread(["gittigidiyor"])
+    # scraper.runThread(["n11", "amazon", "gittigidiyor", "hepsiburada"])
